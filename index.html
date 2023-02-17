@@ -62,13 +62,6 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#measurements">
-                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                            <span class="text nav-text">Online</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
                       <a href="#configuration">
                           <i class='bx bx-cog icon'></i>
                           <span class="text nav-text">Configuration</span>
@@ -79,20 +72,6 @@
                       <a href="#alarm">
                           <i class='bx bx-alarm icon'></i>
                           <span class="text nav-text">Alarm</span>
-                      </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#ai">
-                            <i class='bx bx-brain icon'></i>
-                            <span class="text nav-text">AI</span>
-                        </a>
-                      </li>
-
-                    <li class="nav-link">
-                      <a href="#location">
-                          <i class='bx bx-map icon'></i>
-                          <span class="text nav-text">Location</span>
                       </a>
                     </li>
 
@@ -144,76 +123,6 @@
 
 
 
-
-
-
-
-
-            <!-- POPUP QUIZZ -->
-            <section class="modal container">
-           
-                <div class="modal__container" id="modal-container">
-                    <div class="modal__content">
-                        <div class="modal__close close-modal" title="Close">
-                            <i class='bx bx-x'></i>
-                        </div>
-
-                        <h1 class="modal__title">Good Job!</h1>
-                        <p class="modal__description">We have noticed that the number of mosquitoes has decreased significantly. </p>
-                        <p class="modal__description">Do you feel the same? </p>
-                               
-                        <div class="wrapper">
-
-                            <input type="radio" name="select" id="option-1" checked>
-                            <input type="radio" name="select" id="option-2">
-                            <input type="radio" name="select" id="option-3">
-                        
-                            <label for="option-1" class="option option-1" id="radioButton1">
-                            <span> <i class='bx bx-happy-alt icon'></i> </span>
-                            </label>
-                        
-                            <label for="option-2" class="option option-2" id="radioButton2">
-                            <span> <i class='bx bx-confused icon'></i>  </span>
-                            </label>
-                            
-                            <label for="option-3" class="option option-3" id="radioButton3">
-                            <span> <i class='bx bx-angry icon'></i> </span>
-                            </label>
-
-                        </div>
-
-
-                        <button class="modal__button modal__button-OK" id="OKButton">
-                            OK
-                        </button>
-                    
-                        
-                        <button class="modal__button-link" id="moreInfoButton">
-                            <u> More info </u>
-                        </button>
-
-                        <p class="modal__info" id = "modal_Info1" >How do you feel about the mosquito population ? Do you still get bitten so much ? <br>
-                            Your response allows us to validate the choices made by artificial intelligence and thus improve the efficiency of your smart trap.</p>
-
-                    </div>
-                </div>
-            </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </section>
 
         <section class="blocks" id="dashboard">
@@ -247,12 +156,6 @@
                     <i class='bx bx-font dashboard-icon clickable' id="auto-img"></i>
                     <div class="center btn-text">AUTO</div>
                 </div>
-
-                <div id="ai-btn" onclick="funcModeAI()">
-                    <i class='bx bx-brain dashboard-icon clickable' id="ai-img"></i>
-                    <div class="center btn-text">SMART</div>
-                </div>
-
 
             </div>
 
@@ -288,20 +191,6 @@
                 <span id="networkID" class="btn-text">Network n°?</span>
             </div>
         </section>
-
-
-        <section class="blocks" id="measurements">
-            <div class="text">Online</div>
-            <div class="inner-container horizontal-container">
-                <div class="">
-                    <input type="text" id="ssid">SSID</input>
-                    <input type="password" id="password">Password</input>
-                </div>
-                <button class="save-button" onclick="saveOnline()">Save</button>
-            </div>
-
-        </section>
-
 
 
         <section class="blocks" id="configuration">
@@ -373,11 +262,27 @@
                         </div>
                     </div>
                     <div id="childs-counter" class="num-input">
-                        <label class="btn-text" for="chlids-input">Childs</label>
+                        <label class="btn-text" for="childs-input">Childs</label>
                         <div>
                             <button class="range-btn" onclick="dec('childs-counter')">-</button>
                             <input id="childs-input" type="number" min="0" max="255" step="1" value="0">
                             <button class="range-btn" onclick="inc('childs-counter')">+</button>
+                        </div>
+                    </div>
+                    <div id="CO2-freq" class="num-input">
+                        <label class="btn-text" for="CO2-freq-input">CO2 freq</label>
+                        <div>
+                            <button class="range-btn" onclick="dec('CO2-freq')">-</button>
+                            <input id="CO2-freq-input" type="number" min="1" max="6" step="1" value="1">
+                            <button class="range-btn" onclick="inc('CO2-freq')">+</button>
+                        </div>
+                    </div>
+                    <div id="CO2-lvl" class="num-input">
+                        <label class="btn-text" for="CO2-lvl-input">ml/min</label>
+                        <div>
+                            <button class="range-btn" onclick="dec('CO2-lvl')">-</button>
+                            <input id="CO2-lvl-input" type="number" min="25" max="1000" step="25" value="25">
+                            <button class="range-btn" onclick="inc('CO2-lvl')">+</button>
                         </div>
                     </div>
                 </div>
@@ -396,8 +301,10 @@
                     </div>
                 </div>
                 <div class="inner-container">
-                    <button class="save-button big-btn" onclick="resetMosquitoCounter()">Reset Mosquito Counter</button>
-                    <button class="save-button" onclick="saveConfig()">Save</button>
+                    <button class="save-button" onclick="sendstatus(0)">Reset Cpt</button>
+                    <button class="save-button" onclick="sendstatus(1)">Reset All Cpt</button>
+                    <button class="save-button" onclick="saveConfig()">Set Value</button>
+                    <button class="save-button" onclick="sendstatus(2)">Default Value</button>
                 </div>
             </div>
         </section>
@@ -494,280 +401,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        <section class="blocks" id="ai">
-            <div class="text">Artificial Intelligence</div>
-
-            
-                <!-- POPUP info treshold -->
-                <div class="modal-container" id="InfoTreshold-container">
-                    <div class="modal-content">
-                        <div class="modal-close close-ai-modal" title="Close">
-                            <i class='bx bx-x'></i>
-                        </div>
-
-                        <h1 class="modal-title"> Treshold 1 </h1>
-                        <p class="modal-description"> This threshold corresponds to the decrease in mosquitoes compared 
-                            to the initial mosquito population. 
-                            <br> Once this threshold is reached, 
-                            we go from high Co2 flux mode to medium Co2 flux mode. 
-                            <br> Recommended value: 50%. </p>
-
-                        <h1 class="modal-title"> Treshold 2 </h1>
-                        <p class="modal-description"> Same as for threshold 1, 
-                            but this time we switch from medium Co2 flux mode to small Co2 flux mode. 
-                            <br> Recommended value: 75%. </p>
-                        
-                        <h1 class="modal-title"> Treshold ON </h1>
-                        <p class="modal-description"> Threshold from which the trap starts depending on the number 
-                            of mosquitoes caught in the last 7 days. </p>
-
-                        <h1 class="modal-title"> Impact Coefficient </h1>
-                        <p class="modal-description"> How much the current daily data impact the 7 last days. </p>
-                    
-                        <h1 class="modal-title"> Random Coefficient </h1>
-                        <p class="modal-description"> How often you want to add a perturbation in your system. </p>
-
-                    </div>
-                </div>
-
-                <!-- Treshold 1 Slider part -->
-                <div class="config-ai-container">
-
-                    <div class="slider-big-container">
-                        <div class ="title-info-container">
-                            <div class="title-ai" id="tresh1"> Threshold 1 </div>
-                            <i class='bx bx-info-circle icon clickable' onclick="showInfoAI()"></i>
-                        </div>
-                        <div class = "donut-slider-container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="section1" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section2" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section3" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div class="center">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="range-slider" id = "slider1">
-                                <input type="range" orient="vertical" min="10" max="80"id = "input1" />
-                                <div class="range-slider__bar"></div>
-                                <div class="range-slider__thumb"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Treshold 2 Slider part -->
-                    <div class="slider-big-container">
-                        <div class ="title-info-container">
-                            <div class="title-ai"> Threshold 2 </div>
-                            <i class='bx bx-info-circle icon clickable' onclick="showInfoAI()"></i>
-                        </div>
-                        <div class="donut-slider-container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="section1" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section2" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section3" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div class="center">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="range-slider" id = "slider2">
-                                <input type="range" orient="vertical" min="20" max="90" id = "input2"/>
-                                <div class="range-slider__bar"></div>
-                                <div class="range-slider__thumb"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <!-- Treshold ON Slider part -->
-                    <div class="slider-big-container">
-                        <div class ="title-info-container">
-                            <div class="title-ai"> Threshold ON </div>
-                            <i class='bx bx-info-circle icon clickable' onclick="showInfoAI()"></i>
-                        </div>
-                        <div class = "donut-slider-container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="section1" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section2" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section3" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div class="center">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="range-slider" id = "slider3">
-                                <input type="range" orient="vertical" min="10" max="90" id = "inputOn"/>
-                                <div class="range-slider__bar"></div>
-                                <div class="range-slider__thumb"></div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="config-ai-container">
-                    <!-- Random Coefficient Slider part -->
-                    <div class="slider-big-container">
-                        <div class ="title-info-container">
-                            <div class="title-ai"> Ramdom Coefficient </div>
-                            <i class='bx bx-info-circle icon clickable' onclick="showInfoAI()"></i>
-                        </div>
-                        <div class="donut-slider-container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="section1" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section2" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section3" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div class="center">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="range-slider" id = "sliderRandomCoeff">
-                                <input type="range" orient="vertical" min="50" max="100" id = "input2"/>
-                                <div class="range-slider__bar"></div>
-                                <div class="range-slider__thumb"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <!-- Impact Coefficient Slider part -->
-                    <div class="slider-big-container">
-                        <div class ="title-info-container">
-                            <div class="title-ai"> Impact Coefficient </div>
-                            <i class='bx bx-info-circle icon clickable' onclick="showInfoAI()"></i>
-                        </div>
-                        <div class = "donut-slider-container">
-                            <div class="donut-chart-block block">
-                                <div class="donut-chart">
-                                    <div id="section1" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section2" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div id="section3" class="clip">
-                                        <div class="item"></div>
-                                    </div>
-                                    <div class="center">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="range-slider" id="sliderImpactCoeff">
-                                <input type="range" orient="vertical" min="10" max="90" id = "inputOn"/>
-                                <div class="range-slider__bar"></div>
-                                <div class="range-slider__thumb"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="button-ai-confing-container">
-                    <button class="default-save-ai-button ai-config-button" id="ai-apply" onclick="apply()">
-                        Apply
-                    </button>
-                </div>
-
-
-
-              
-                
-        
-        </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <section class="blocks" id="location">
-            <div class="text">Location</div>
-            <div class="alarms-container">
-                <div style="margin-top:10px;margin-bottom: 10px;">
-                    <button onClick='geoFindMe()' id = "find-me" class="save-button location">Save current location</button><br/>
-                </div>
-                <div class="mapouter" style="display: flex;justify-content: center;">
-                    <div class="gmap_canvas">
-                    <iframe width="600" height="500" id="gmap_canvas" 
-                    src="https://maps.google.com/maps?q=0,0&maptype=satellite&z=1&output=embed" 
-                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                    </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-
         <section class="blocks" id="alerts">
             <div class="text">Alerts</div>
 
@@ -811,17 +444,13 @@
         });
     </script>
 
-    <script type="text/javascript" src="src/scripts/global_declarations.js"></script>
-    <script type="text/javascript" src="src/scripts/AI.js"></script>
+    <script type="text/javascript" src="src/scripts/alarms.js"></script>
     <script type="text/javascript" src="src/scripts/alerts.js"></script>
     <script type="text/javascript" src="src/scripts/appli.js"></script>
+    <script type="text/javascript" src="src/scripts/config.js"></script>
     <script type="text/javascript" src="src/scripts/connection.js"></script>
     <script type="text/javascript" src="src/scripts/dashboard.js"></script>
-    <script type="text/javascript" src="src/scripts/config.js"></script>
-    <script type="text/javascript" src="src/scripts/alarms.js"></script>
-    <script type="text/javascript" src="src/scripts/position.js"></script>
-    <script type="text/javascript" src="src/scripts/online.js"></script>
-    
+    <script type="text/javascript" src="src/scripts/global_declarations.js"></script>
 
 </body>
 </html>

@@ -155,13 +155,11 @@ async function funcModeAuto()
 
         // changing the value of the mode variables
         modeAuto=1;
-        modeAI=0;
         modeManual=0;
         
         // changing the color of the icons on the screen. (green for active / gray for not active)
         document.getElementById('auto-img').style.color = 'green';
         document.getElementById('manual-img').style.color = 'var(--text-color)';
-        document.getElementById('ai-img').style.color = 'var(--text-color)';
 
         // showing small lock on the screen, because we are not in manual mode
         showLockers();
@@ -183,60 +181,6 @@ async function funcModeAuto()
 }
 
 
-/**
- * Switch to AUTO mode
- */
-async function funcModeAI()
-{
-
-    if(!modeAI)
-    {
-        let statusWord = new Uint8Array(2);
-    
-        console.log('>> Reading status');
-        statusWord = await readStatus();
-        console.log('>> status readed');
-        console.log(statusWord);
-
-        modeAuto=0;
-        modeAI=1;
-        modeManual=0;
-
-        setTimes();
-        
-        document.getElementById('ai-img').style.color = 'green';
-        document.getElementById('manual-img').style.color = 'var(--text-color)';
-        document.getElementById('auto-img').style.color = 'var(--text-color)';
-
-        showLockers();
-
-        statusWord[1]= 0b11111100 & statusWord[1]; // on met les 2 LSB à 0;
-        statusWord[1]= 0b00000010 | statusWord[1]; // on passe en mode ai
-
-        console.log('>> Writing status characteristic');
-        console.log(statusWord);
-        try{
-            await characteristicStatus.writeValue(statusWord);
-        }
-        catch(error){
-            console.log('/!\ Failed writing actuators characteristic' + error);
-        }
-    }
-    else
-    {
-        console.log(" doit cliquer sur un autre mode que le mode auto ");
-        /*
-        modeAuto=0;
-        document.getElementById('auto-img').style.color = 'var(--text-color)';
-        
-        hideLockers();
-
-        statusWord[1]=0b11111101 & statusWord[1];*/
-    }
-}
-
-
-
 
 
 /**
@@ -256,11 +200,9 @@ async function funcModeManual()
         console.log(statusWord);
 
         modeAuto=0;
-        modeAI=0;
         modeManual=1;
 
         document.getElementById('manual-img').style.color = 'green';
-        document.getElementById('ai-img').style.color = 'var(--text-color)';
         document.getElementById('auto-img').style.color = 'var(--text-color)';
 
         hideLockers();

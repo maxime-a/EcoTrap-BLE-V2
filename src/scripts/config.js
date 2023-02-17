@@ -68,6 +68,22 @@ function dec(text)
             document.getElementById("childs-input").value = childsCounter.toFixed(0);
             break;
 
+        case 'CO2-freq':
+                if(co2_freq>1)
+                    co2_freq-=1;
+                else
+                    co2_freq=1;
+                document.getElementById("CO2-freq-input").value = co2_freq.toFixed(0);
+                break;
+
+        case 'CO2-lvl':
+                    if(co2_lvl>25)
+                        co2_lvl-=25;
+                    else
+                        co2_lvl=25;
+                    document.getElementById("CO2-lvl-input").value = co2_lvl.toFixed(0);
+                break;
+
         case 'measurements':
             if(measurementsPeriod>1)
                 measurementsPeriod-=1;
@@ -140,6 +156,22 @@ function inc(text)
             document.getElementById("childs-input").value = childsCounter.toFixed(0);
             break;
 
+        case 'CO2-freq':
+                if(co2_freq<6)
+                    co2_freq+=1;
+                else
+                    co2_freq=6;
+                document.getElementById("CO2-freq-input").value = co2_freq.toFixed(0);
+                break;
+
+        case 'CO2-lvl':
+                    if(co2_lvl<1000)
+                        co2_lvl+=25;
+                    else
+                        co2_lvl=1000;
+                    document.getElementById("CO2-lvl-input").value = co2_lvl.toFixed(0);
+                break;
+
         case 'measurements':
             if(measurementsPeriod<360)
                 measurementsPeriod+=1;
@@ -148,14 +180,6 @@ function inc(text)
             document.getElementById("measurements-input").value = measurementsPeriod.toFixed(0);
             break;
 
-          
-        case 'randomCoeff':
-            if(randomCoeffValue <10)
-                randomCoeffValue+=1;
-            else
-                randomCoeffValue=10;
-            document.getElementById("randomCoeff").value = randomCoeffValue.toFixed(1);
-            break;
     }
 }
 
@@ -169,6 +193,8 @@ function readRangesValues()
     networkId=parseFloat(document.getElementById("network-input").value);
     machineId=parseFloat(document.getElementById("machine-input").value);
     childsCounter=parseFloat(document.getElementById("childs-input").value);
+    co2_freq=parseFloat(document.getElementById("CO2-freq-input").value);
+    co2_lvl=parseFloat(document.getElementById("CO2-lvl-input").value);
     measurementsPeriod=parseFloat(document.getElementById("measurements-input").value);
 }
 
@@ -202,6 +228,10 @@ async function saveConfig()
 
   console.log(sensorsWord)
 
+  //CO2 frequency
+  generalWord[0] =  co2_lvl & 0x00FF;
+  generalWord[1] = (co2_lvl & 0xFF00) >> 8;
+
   //Netword ID
   generalWord[2] = networkId;
 
@@ -210,6 +240,9 @@ async function saveConfig()
 
   //Childs counter
   generalWord[4] = childsCounter;
+
+  //CO2 frequency
+  generalWord[5] = co2_freq;
 
   console.log(generalWord)
 
@@ -225,15 +258,31 @@ async function saveConfig()
 
 
 
-async function resetMosquitoCounter(){
+async function sendstatus(test){
     let statusWord = new Uint8Array(2);
-
+    
     console.log('>> Reading status');
     statusWord = await readStatus();
     console.log('>> status readed');
     console.log(statusWord);
 
-    statusWord[1] = statusWord[1] | 0b00010000;
+    switch(test)
+    {
+        case 0:
+            console.log('>> Reset my board mosquito cpt');
+            statusWord[1] = statusWord[1] | 0b00001000;    
+            break;
+
+        case 1:
+            console.log('>> Reset all board mosquito cpt');
+            statusWord[1] = statusWord[1] | 0b00010000;   
+            break;
+
+        case 2:
+            console.log('>> Reset Value with default one');
+            statusWord[1] = statusWord[1] | 0b00100000;    
+            break;
+    }
 
     console.log('>> Writing status caracteristic');
     console.log(statusWord);
@@ -244,4 +293,7 @@ async function resetMosquitoCounter(){
         console.log('/!\ Failed writing actuators caracteristic' + error);
     }
 
+    sleep(1000);
+    disconnect();
 }
+

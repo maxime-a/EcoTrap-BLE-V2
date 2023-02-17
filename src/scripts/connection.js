@@ -91,21 +91,6 @@ async function connect()
                     characteristicCalendar=characteristic;
                     break;
 
-                /* Position */
-                case "00000205-0000-1000-8000-00805f9b34fb":
-                    characteristicPosition=characteristic;
-                    break;
-
-                /* Position */
-                case "00000206-0000-1000-8000-00805f9b34fb":
-                    characteristicSSID=characteristic;
-                    break;
-
-                /* Position */
-                case "00000207-0000-1000-8000-00805f9b34fb":
-                    characteristicPassword=characteristic;
-                    break;
-
                 /* Measurements */
                 case "00000301-0000-1000-8000-00805f9b34fb":
                     characteristic.startNotifications();
@@ -115,7 +100,6 @@ async function connect()
                 
                 /* Alerts */
                 case "00000401-0000-1000-8000-00805f9b34fb":
-                    console.log("HELLLLLLO");
                     characteristic.startNotifications();
                     sleep(500);
                     characteristic.oncharacteristicvaluechanged = handleDataAlerts;

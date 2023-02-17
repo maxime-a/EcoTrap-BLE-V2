@@ -58,14 +58,6 @@ async function readActuators(){
     return sensorsWord;
 }
 
-/**
- * Read and return the AI caracteristic
- */
-async function readAI(){
-    var value = await characteristicAI.readValue();
-    let AIWord = new Uint8Array(value.buffer);
-    return AIWord;
-}
 
 /** 
  * Convert an bcd interger to two digit string
@@ -134,43 +126,27 @@ async function globalInit()
     statusWord = await readStatus();
     
     console.log("---------- READ STATUS -------------");
-    console.log(statusWord[1]&0b00000011);
+    console.log(statusWord[1]&0b00000001);
 
-    if((statusWord[1]&0b00000011) == 3) // Mode AI
-    {
-        //funcModeAI();
-        modeAuto=0;
-        modeManual=0,
-        modeAI=1;
-        document.getElementById('ai-img').style.color = 'green';
-        document.getElementById('manual-img').style.color = 'var(--text-color)';
-        document.getElementById('auto-img').style.color = 'var(--text-color)';
-        lockers = document.getElementsByClassName("locker");
-        for(let i=0;i<lockers.length;i++){lockers[i].style.visibility='hidden';}
-    }
-    else if((statusWord[1]&0b00000011) == 2) // Mode AUTO
+    if((statusWord[1]&0b00000001) == 1) // Mode AUTO
     {
         //funcModeAuto();
     
         modeAuto=1;
-        modeAI=0;
         modeManual=0;
         document.getElementById('auto-img').style.color = 'green';
-        document.getElementById('ai-img').style.color = 'var(--text-color)';
         document.getElementById('manual-img').style.color = 'var(--text-color)';
         lockers = document.getElementsByClassName("locker");
         for(let i=0;i<lockers.length;i++){lockers[i].style.visibility='visible';}
     }
 
-    else if((statusWord[1]&0b00000011) == 1) // Mode Manual
+    else if((statusWord[1]&0b00000001) == 0) // Mode Manual
     {
         //funcModeManual();
         
         modeAuto=0;
         modeManual=1,
-        modeAI=0;
         document.getElementById('manual-img').style.color = 'green';
-        document.getElementById('ai-img').style.color = 'var(--text-color)';
         document.getElementById('auto-img').style.color = 'var(--text-color)';
         lockers = document.getElementsByClassName("locker");
         for(let i=0;i<lockers.length;i++){lockers[i].style.visibility='hidden';}
@@ -300,36 +276,17 @@ async function globalInit()
     minHum = sensorsWord[14];
     document.getElementById("hum-min-input").value = minHum;
 
+    co2_lvl= ((generalWord[1]<<8) | generalWord[0]);
+    document.getElementById("CO2-lvl-input").value = co2_lvl;
+    networkId = generalWord[2];
+    document.getElementById("network-input").value = networkId;    
     machineId = generalWord[3];
     document.getElementById("machine-input").value = machineId;
-    networkId = generalWord[2];
-    document.getElementById("network-input").value = networkId;
     childsCounter=generalWord[4]
     document.getElementById("childs-input").value = childsCounter;
+    co2_freq = generalWord[5];
+    document.getElementById("CO2-freq-input").value = co2_freq;    
 
     measurementsPeriod = sensorsWord[19];
     document.getElementById("measurements-input").value = measurementsPeriod;
-
-    AIWord = readAI();
-
-    prevTreshold1 = AIWord[0];
-    prevTreshold2 = AIWord[1];
-    prevTresholdON = AIWord[2];
-    prevImpactCoeff = AIWord[3];
-    prevRandomCoeff = AIWord[4];
-    quizzDemand = AIWord[5];
-
-
-    /* AI */
-    if( quizzDemand ){
-        showModal('open-modal','modal-container');
-    }
-
-
-    /* Position */
-    console.log(">> Updating map")
-    readPosition();
-
-    
 }
-

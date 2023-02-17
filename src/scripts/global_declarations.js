@@ -18,11 +18,7 @@
  var characteristicStatus;
  var characteristicActuators;
  var characteristicCalendar;
- var characteristicPosition;
- var characteristicSSID;
- var characteristicPassword;
  var characteristicSensors;
- var characteristicAI;
  var characteristicGeneral;
  
  var connectionToggle;
@@ -30,7 +26,6 @@
  var co2State;
  var lightState;
  var modeAuto; // Mode Auto
- var modeAI;
  var modeManual;
  
  var mosquitoNumber=0;
@@ -41,28 +36,6 @@
  var networkId=255;
  var machineId=255;
  var childsCounter=0;
+ var co2_freq=0;
+ var co2_lvl=0;
  var measurementsPeriod=5;
-
- var quizzDemand = false;
-
- var treshold1Value;
- var treshold2Value;
- var tresholdOnValue;
- var minTreshold2;
-
- var prevTreshold1;
- var prevTreshold2;
- var prevTresholdON;
- var prevImpactCoeff;
- var prevRandomCoeff;
-
- var randomCoeffValue;
- var impactCoeffValue;
-
-
-
-
-
-
- 
- 
