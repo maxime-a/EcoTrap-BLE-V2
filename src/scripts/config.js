@@ -58,6 +58,7 @@ function dec(text)
             else
                 machineId=0;
             document.getElementById("machine-input").value = machineId.toFixed(0);
+            updatedashboard();
             break;
 
         case 'childs-counter':
@@ -146,6 +147,7 @@ function inc(text)
             else
                 machineId=255;
             document.getElementById("machine-input").value = machineId.toFixed(0);
+            updatedashboard();
             break;
 
         case 'childs-counter':
@@ -253,6 +255,7 @@ async function saveConfig()
   catch(error){
     console.log('>> Config save error ' + error);
   }
+
 }
 
 
@@ -268,16 +271,6 @@ async function sendstatus(test){
 
     switch(test)
     {
-        case 0:
-            console.log('>> Reset my board mosquito cpt');
-            statusWord[1] = statusWord[1] | 0b00001000;    
-            break;
-
-        case 1:
-            console.log('>> Reset all board mosquito cpt');
-            statusWord[1] = statusWord[1] | 0b00010000;   
-            break;
-
         case 2:
             console.log('>> Reset Value with default one');
             statusWord[1] = statusWord[1] | 0b00100000;    
@@ -296,4 +289,3 @@ async function sendstatus(test){
     sleep(1000);
     disconnect();
 }
-

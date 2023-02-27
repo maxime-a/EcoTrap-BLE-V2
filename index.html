@@ -15,7 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="src/ai.css">
     <link rel="stylesheet" href="src/style.css">
     
     <!----===== Boxicons CSS ===== -->
@@ -115,13 +114,7 @@
                 <span class='connection-lbl' id='connection-text'>Not connected</span>
             </div>
 
-            
-
-
-
-
-
-
+        
 
         </section>
 
@@ -130,19 +123,15 @@
 
             <div class="horizontal-container measurements">
                 <div id="temperature">
-                    <i class='bx bxs-thermometer dashboard-icon' ></i>
+                    <i id="temperature-img" class='bx bxs-thermometer dashboard-icon' ></i>
                     <span id="temperature-value" class="inner-text">.. °C</span>
                 </div>
                 
                 <div id="humidity">
-                    <i class='bx bx-droplet dashboard-icon' ></i>
+                    <i id="humidity-img" class='bx bx-droplet dashboard-icon' ></i>
                     <span id="humidity-value" class="inner-text">.. %</span>
                 </div>
 
-                <div id="mosquitoes">
-                    <i class='bx bx-bug dashboard-icon' ></i>
-                    <span id="mosquitoes-value" class="inner-text">...</span>
-                </div>
             </div>
 
             <div class="horizontal-container measurements">
@@ -198,44 +187,44 @@
             <div class="config-container" id="config-container">
                 <div class="inner-container" id="ranges">
                     <div class="temp-ranges inner-container" id="temperature-ranges">
-                        <div class="ranges-title">
+                        <div  id="temp-title" class="ranges-title">
                             Temperature °C
                         </div>
                         <div id="temp-min" class="num-input">
                             <label class="btn-text" for="temp-min-input">Minimum</label>
                             <div>
-                                <button class="range-btn" onclick="dec('min-temp')">-</button>
+                                <button id="temp-min-dec-input" class="range-btn" onclick="dec('min-temp')">-</button>
                                 <input id="temp-min-input" type="number" min="0" max="50" step="0.5" value="18">
-                                <button class="range-btn" onclick="inc('min-temp')">+</button>
+                                <button id="temp-min-inc-input" class="range-btn" onclick="inc('min-temp')">+</button>
                             </div>
                         </div>
                         <div id="temp-max" class="num-input">
                             <label class="btn-text" for="temp-max-input">Maximum</label>
                             <div>
-                                <button class="range-btn" onclick="dec('max-temp')">-</button>
+                                <button id="temp-max-dec-input" class="range-btn" onclick="dec('max-temp')">-</button>
                                 <input id="temp-max-input" type="number" min="0" max="50" step="0.5" value="35">
-                                <button class="range-btn" onclick="inc('max-temp')">+</button>
+                                <button id="temp-max-inc-input" class="range-btn" onclick="inc('max-temp')">+</button>
                             </div>
                         </div>
                     </div>
                     <div class="temp-ranges inner-container" id="humidity-ranges">
-                        <div class="ranges-title">
+                        <div id="humidity-title" class="ranges-title">
                             Humidity %
                         </div>
                         <div id="humidity-min" class="num-input">
                             <label class="btn-text" for="hum-min-input">Minimum</label>
                             <div>
-                                <button class="range-btn" onclick="dec('min-hum')">-</button>
+                                <button id="hum-min-dec-input" class="range-btn" onclick="dec('min-hum')">-</button>
                                 <input id="hum-min-input" type="number" min="0" max="100" step="1" value="20">
-                                <button class="range-btn" onclick="inc('min-hum')">+</button>
+                                <button id="hum-min-inc-input" class="range-btn" onclick="inc('min-hum')">+</button>
                             </div>
                         </div>
                         <div id="hum-max" class="num-input">
                             <label class="btn-text" for="hum-max-input">Maximum</label>
                             <div>
-                                <button class="range-btn" onclick="dec('max-hum')">-</button>
+                                <button id="hum-max-dec-input" class="range-btn" onclick="dec('max-hum')">-</button>
                                 <input id="hum-max-input" type="number" min="0" max="100" step="1" value="90">
-                                <button class="range-btn" onclick="inc('max-hum')">+</button>
+                                <button id="hum-max-inc-input" class="range-btn" onclick="inc('max-hum')">+</button>
                             </div>
                         </div>
                     </div>
@@ -264,25 +253,25 @@
                     <div id="childs-counter" class="num-input">
                         <label class="btn-text" for="childs-input">Childs</label>
                         <div>
-                            <button class="range-btn" onclick="dec('childs-counter')">-</button>
+                            <button id="childs-dec-input" class="range-btn" onclick="dec('childs-counter')">-</button>
                             <input id="childs-input" type="number" min="0" max="255" step="1" value="0">
-                            <button class="range-btn" onclick="inc('childs-counter')">+</button>
+                            <button id="childs-inc-input" class="range-btn" onclick="inc('childs-counter')">+</button>
                         </div>
                     </div>
                     <div id="CO2-freq" class="num-input">
                         <label class="btn-text" for="CO2-freq-input">CO2 freq</label>
                         <div>
-                            <button class="range-btn" onclick="dec('CO2-freq')">-</button>
+                            <button id="CO2-freq-dec-input" class="range-btn" onclick="dec('CO2-freq')">-</button>
                             <input id="CO2-freq-input" type="number" min="1" max="6" step="1" value="1">
-                            <button class="range-btn" onclick="inc('CO2-freq')">+</button>
+                            <button id="CO2-freq-inc-input" class="range-btn" onclick="inc('CO2-freq')">+</button>
                         </div>
                     </div>
                     <div id="CO2-lvl" class="num-input">
                         <label class="btn-text" for="CO2-lvl-input">ml/min</label>
                         <div>
-                            <button class="range-btn" onclick="dec('CO2-lvl')">-</button>
+                            <button id="CO2-lvl-dec-input" class="range-btn" onclick="dec('CO2-lvl')">-</button>
                             <input id="CO2-lvl-input" type="number" min="25" max="1000" step="25" value="25">
-                            <button class="range-btn" onclick="inc('CO2-lvl')">+</button>
+                            <button id="CO2-lvl-inc-input" class="range-btn" onclick="inc('CO2-lvl')">+</button>
                         </div>
                     </div>
                 </div>
@@ -294,15 +283,13 @@
                     <div id="measurements-period" class="num-input">
                         <label class="btn-text" for="measurements">Seconds</label>
                         <div>
-                            <button class="range-btn" onclick="dec('measurements')">-</button>
+                            <button id="measurements-dec-input" class="range-btn" onclick="dec('measurements')">-</button>
                             <input id="measurements-input" type="number" min="0" max="360" step="1" value="5">
-                            <button class="range-btn" onclick="inc('measurements')">+</button>
+                            <button id="measurements-inc-input" class="range-btn" onclick="inc('measurements')">+</button>
                         </div>
                     </div>
                 </div>
                 <div class="inner-container">
-                    <button class="save-button" onclick="sendstatus(0)">Reset Cpt</button>
-                    <button class="save-button" onclick="sendstatus(1)">Reset All Cpt</button>
                     <button class="save-button" onclick="saveConfig()">Set Value</button>
                     <button class="save-button" onclick="sendstatus(2)">Default Value</button>
                 </div>
@@ -415,7 +402,7 @@
             </div>
             <div class="alerts-container">
                 <div class="alerts-text" id = "deadFan">  </div>
-            </div>
+            </div>       
         </section>
     
     </main>
