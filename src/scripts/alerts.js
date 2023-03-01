@@ -52,18 +52,18 @@
             strOutOfCo2_Nb +=  i + "  ";  
             document.getElementById("deadFan").innerHTML = strFanFault + strFanFault_Nb;
         }
-
-        if(buf[0]&0b00010000){ // Fan Default
-            console.log("la trap ", i, " Sensor fault..." );
-            temp_sensor_on = 0;
-            updatedashboard();
-        }
-        else
-        {
-            temp_sensor_on = 1;
-            updatedashboard();
-        }
     }
+
+    if(buf[0]&0b00010000){ // Fan Default
+        console.log("la trap ", i, " Sensor fault..." );
+        temp_sensor_on = 0;
+        updatedashboard();
+    }
+    else
+    {
+        temp_sensor_on = 1;
+        updatedashboard();
+    }    
 
     
 
