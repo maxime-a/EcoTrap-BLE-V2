@@ -253,9 +253,18 @@ function handleDataMeasurements(event) {
     mosquito = buf[12];
     // update UI
     document.getElementById('voltage-value').innerHTML  =   'Voltage ' + voltage.toFixed(1).toString() + 'V';
-    document.getElementById('temperature-value').innerHTML  =   temperature.toFixed(1).toString() + '°C';
-    document.getElementById('humidity-value').innerHTML     =   humidity.toString() + '%';
-    document.getElementById('mosquitoes-value').innerHTML   =   mosquito.toString();
+
+    if (temp_sensor_on)
+    {
+        document.getElementById('temperature-value').innerHTML  =   temperature.toFixed(1).toString() + '°C';
+        document.getElementById('humidity-value').innerHTML     =   humidity.toString() + '%';
+    }
+    else
+    {
+        updatedashboard();
+    }
+
+
 }
 
 /**
@@ -295,4 +304,56 @@ function handleActuatorsNotif(event) {
 }
 
 
+function updatedashboard(){
+
+    if ((machineId != 0))
+    {
+    console.log("Disbale all input");
+    document.getElementById("temperature").style.visibility = "hidden";
+    document.getElementById("humidity").style.visibility = "hidden";    
+    document.getElementById("ranges").style.visibility = "hidden";
+    document.getElementById("timers").style.visibility = "hidden";
+    document.getElementById("CO2-lvl").style.visibility = "hidden";
+    document.getElementById("CO2-freq").style.visibility = "hidden";
+    document.getElementById("childs-counter").style.visibility = "hidden";
+
+    }
+    else
+    {
+        console.log("Enable all input");
+        document.getElementById("temperature").style.visibility = "visible";
+        document.getElementById("humidity").style.visibility = "visible";    
+        document.getElementById("ranges").style.visibility = "visible";
+        document.getElementById("timers").style.visibility = "visible";
+        document.getElementById("CO2-lvl").style.visibility = "visible";
+        document.getElementById("CO2-freq").style.visibility = "visible";
+        document.getElementById("childs-counter").style.visibility = "visible";
+
+        if (temp_sensor_on == 0)
+        {
+            document.getElementById("temperature-img").style.color = "red";
+            document.getElementById("temperature-value").style.color = "red";
+        
+            document.getElementById("humidity-img").style.color = "red";
+            document.getElementById("humidity-value").style.color = "red";
+        
+            document.getElementById('temperature-value').innerHTML  =   'OFF';
+            document.getElementById('humidity-value').innerHTML     =   'OFF';
+        
+            document.getElementById("temp-title").style.color = "red";
+            document.getElementById("humidity-title").style.color = "red";
+        }
+        else
+        {
+            document.getElementById("temperature-img").style.color =  0x707070;
+            document.getElementById("temperature-value").style.color = 0x707070;
+        
+            document.getElementById("humidity-img").style.color = 0x707070;
+            document.getElementById("humidity-value").style.color = 0x707070;
+        
+            document.getElementById("temp-title").style.color = 0x707070;
+            document.getElementById("humidity-title").style.color = 0x707070;            
+        }
+    }
+}
 

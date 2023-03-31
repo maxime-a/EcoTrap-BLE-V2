@@ -12,7 +12,7 @@
  * Handle measurements notification
  */
  function handleDataAlerts(event) {
-    location.href ="#alerts";
+    //location.href ="#alerts";
 
 
     // get the data buffer from the event
@@ -21,7 +21,6 @@
     console.log(">> Alerts data received : ")
     console.log(buf);
 
-    
     strNotAlive = "Trap not detected : ";
     strNotAlive_Nb = "";
     strOutOfCo2 = "Trap out of Co2 : ";
@@ -30,7 +29,7 @@
     strNotBatteryLow_Nb = "";
     strFanFault = "Trap out of Co2 : ";
     strFanFault_Nb = "";
-
+    strSensorFault = "Sensor not working";
 
     for (let i = 0; i < buf.length; i++) {
         if(buf[i]&0b00000001){ // Not Detected 
@@ -54,6 +53,17 @@
             document.getElementById("deadFan").innerHTML = strFanFault + strFanFault_Nb;
         }
     }
+
+    if(buf[0]&0b00010000){ // Fan Default
+        console.log("la trap ", i, " Sensor fault..." );
+        temp_sensor_on = 0;
+        updatedashboard();
+    }
+    else
+    {
+        temp_sensor_on = 1;
+        updatedashboard();
+    }    
 
     
 
