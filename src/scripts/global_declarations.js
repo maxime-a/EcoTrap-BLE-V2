@@ -20,7 +20,6 @@
  var characteristicCalendar;
  var characteristicSensors;
  var characteristicGeneral;
- var characteristicAlerts;
  
  var connectionToggle;
  var fanState;
@@ -40,4 +39,3 @@
  var co2_freq=0;
  var co2_lvl=0;
  var measurementsPeriod=5;
- var temp_sensor_on=1;

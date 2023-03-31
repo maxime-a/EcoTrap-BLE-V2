@@ -100,10 +100,9 @@ async function connect()
                 
                 /* Alerts */
                 case "00000401-0000-1000-8000-00805f9b34fb":
-                    characteristicAlerts=characteristic;
                     characteristic.startNotifications();
                     sleep(500);
-                    characteristicAlerts.oncharacteristicvaluechanged = handleDataAlerts;
+                    characteristic.oncharacteristicvaluechanged = handleDataAlerts;
                     break;
             }
         });

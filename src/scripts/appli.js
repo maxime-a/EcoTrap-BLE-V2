@@ -58,14 +58,6 @@ async function readActuators(){
     return sensorsWord;
 }
 
-/**
- * Read and return the alerts caracteristic
- */
-async function readAlerts(){
-    var value = await characteristicAlerts.readValue();
-    let alertsWord = new Uint8Array(value.buffer);
-    return alertsWord;
-}
 
 /** 
  * Convert an bcd interger to two digit string
@@ -90,7 +82,7 @@ async function globalInit()
 
     let generalWord = new Uint8Array(6);
     generalWord = await readGeneral();
-
+  
     document.getElementById("networkID").innerHTML = "Network n°" + generalWord[2];
     document.getElementById("dashboard-title").innerHTML = "Dashboard of network n°" + generalWord[2] + ", machine n°" + generalWord[3];
     document.getElementById("machineID").innerHTML = "Machine n°" + generalWord[3];
@@ -297,18 +289,4 @@ async function globalInit()
 
     measurementsPeriod = sensorsWord[19];
     document.getElementById("measurements-input").value = measurementsPeriod;
-
-    /* Alerts*/
-    let alertsWord = new Uint8Array(101);
-    alertsWord = await readAlerts();
-    if (alertsWord[0]&0b00010000)
-    {
-        console.log("la trap 0 Sensor fault..." );
-        temp_sensor_on = 0;
-    }
-    else
-    {
-        temp_sensor_on = 1;
-    }
-    updatedashboard();
 }
